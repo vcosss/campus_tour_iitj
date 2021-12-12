@@ -1,0 +1,21 @@
+nav {
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+#homebutton {
+    color: white;
+}
+
+#contact {
+    color: white;
+}
+
+#lhcImage {
+    width: 10vw;
+
+}
