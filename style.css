@@ -7,15 +7,56 @@ nav {
     border-radius: 5px;
 }
 
+.navButton {
+    color: white;
+    margin: 5px;
+}
+
+.navButton:hover {
+    cursor: pointer;
+}
+
+/* 
 #homebutton {
     color: white;
+    margin: 5px;
 }
 
 #contact {
     color: white;
+    margin: 5px;
+} */
+
+#dayModeBtn {
+    position: fixed;
+    top: 15vh;
+    right: 1vw;
+    z-index: 99;
+    border: none;
+    border-radius: 50%;
+    animation: bounce 0.6s ease-in 0s infinite alternate;
 }
 
-#lhcImage {
-    width: 10vw;
+#dayModeBtn:hover {
+    cursor: pointer;
+}
 
+@keyframes bounce {
+    0% {
+        top: 15vh;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    }
+    100% {
+        top: 14.8vh;
+        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.buildingTopView img {
+    width: 10vw;
+}
+
+.dark-mode{
+    background-color: #2C394B;
+    color: #EEEEEE
 }
