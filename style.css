@@ -1,3 +1,22 @@
+html, body {
+    height:100%;
+    width:100%;
+    margin:0;
+    padding:0;
+    /* overflow: hidden; */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
 nav {
     background-color: black;
     display: flex;
@@ -15,17 +34,6 @@ nav {
 .navButton:hover {
     cursor: pointer;
 }
-
-/* 
-#homebutton {
-    color: white;
-    margin: 5px;
-}
-
-#contact {
-    color: white;
-    margin: 5px;
-} */
 
 #dayModeBtn {
     position: fixed;
@@ -52,11 +60,16 @@ nav {
     }
 }
 
-.buildingTopView img {
-    width: 10vw;
+#mapCanvas {
+    border-radius: 5px;
+    margin: 5px;
 }
 
 .dark-mode{
     background-color: #2C394B;
     color: #EEEEEE
+}
+
+.hoverEffectForBuiliding:hover {
+    cursor: pointer;
 }
