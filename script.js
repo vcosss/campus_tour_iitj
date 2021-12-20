@@ -1,7 +1,7 @@
 // function for controlling day/night mode button
 function changeMode(){
     var element = document.querySelector("canvas");
-    element.classList.toggle("dark-mode")
+    element.classList.toggle("dark-mode");
 
     if (document.getElementById("theme").getAttribute("src") == "pics/DarkThemeIcon.png") {
         document.getElementById("theme").src = "pics/sun.png";
@@ -19,11 +19,7 @@ let currentZoom = 1;
 let minZoom = 0.3;
 let maxZoom = 3;
 let SCROLL_SENSITIVITY = 0.0005;
-let cameraOffset = {
-    // x: document.querySelector("canvas").width,
-    // y: document.querySelector("canvas").height
-    x: 0, y:0
-};
+let cameraOffset = {x: 0, y:0};
 
 const imgName = [
     "lhc", "adminBlock"
@@ -41,29 +37,26 @@ const imgObjects = [];
 var imagesLeftToLoad = imgName.length;
 
 function loadAllImages() {
-    var imgLoaded = []
     for (var i=0; i<imgName.length; i++) {
         imgObjects[i] = new Image();
         imgObjects[i].onload = function() {
-            imgLoaded[i] = true;
+            imagesLeftToLoad--;
+            if (imagesLeftToLoad == 0) {
+                document.getElementById("loader").style.display = "none";
+                document.querySelector("iframe").style.display = "block";
+                mapCanvas.style.display = "block";
+                imagesLeftToLoad--;
+                makeCanvas();
+            }
         };
         imgObjects[i].src = imgSource[i];
         imgObjects[i].alt = imgName[i];
-        makeCanvas();
+        // imgObjects[i].classList.add("campusImage");
     }
 }
 
 // Function to load the canvas
 function makeCanvas() {
-    if (--imagesLeftToLoad > 0) return;
-    
-    if (imagesLeftToLoad == 0) {
-        document.getElementById("loader").style.display = "none";
-        document.querySelector("iframe").style.display = "block";
-        mapCanvas.style.display = "block";
-        imagesLeftToLoad--;
-    }
-
     let navBar = document.querySelector("nav");
     let navBarHeight = navBar.offsetHeight + parseInt(getComputedStyle(navBar).marginTop) + parseInt(getComputedStyle(navBar).marginBottom);
 
@@ -99,33 +92,12 @@ function loadImagesOnCanvas() {
             imgSize[i][0] * rescaleRatio, imgSize[i][1] * rescaleRatio
         );
     }
-
-    // var lhcHeight = 150 * rescaleRatio;
-    // var lhcWidth = 105 * rescaleRatio;
-
-    // lhc.onload = function () {
-    //     ctx.drawImage(lhc, 0.45 * mapCanvas.width, 0.55 * mapCanvas.height, lhcWidth, lhcHeight);
-    //     lhc.addEventListener("click", function() {
-    //         lhc.classList.toggle("buildingSelected");
-    //     });
-    // };
-    
-    // let adminBlockWidth = 286 * rescaleRatio;
-    // let adminBlockHeight = 225 * rescaleRatio;
-    // adminBlock.onload = function () {
-    //     ctx.drawImage(adminBlock, 0.46*mapCanvas.width, 0.02*mapCanvas.height, adminBlockWidth, adminBlockHeight);
-        // adminBlock.classList.add("hoverEffectForBuiliding");
-    // }
-
-    // adminBlock.addEventListener("click", function () {
-    //     adminBlock.classList.toggle("builidingSelected");
-    // });
 }
 
 // Gets the relevant location from a mouse or single touch event
 function getEventLocation(event) {
     if (event.touches && event.touches.length == 1) {
-        return {x:event.touches[0].clientX, y: event.touches[0].clientY}
+        return {x:event.touches[0].clientX, y: event.touches[0].clientY};
     }
     else if (event.clientX && event.clientY) {
         return { x: event.clientX, y: event.clientY};
@@ -137,7 +109,7 @@ let draggingStartPos = {x: 0, y: 0};
 let initialPinchDistance = null;
 
 function onPointerDown(event) {
-    isDragging = true
+    isDragging = true;
     draggingStartPos.x = getEventLocation(event).x/currentZoom - cameraOffset.x;
     draggingStartPos.y = getEventLocation(event).y/currentZoom - cameraOffset.y;
 }
@@ -156,7 +128,7 @@ function onPointerMove(event) {
 }
 
 function handlePinch(event) {
-    event.preventDefault()
+    event.preventDefault();
     
     let touch1 = {x: event.touches[0].clientX, y: event.touches[0].clientY};
     let touch2 = {x: event.touches[1].clientX, y: event.touches[1].clientY};
@@ -174,18 +146,18 @@ function handlePinch(event) {
 
 function handleTouch(event, singleTouchHandler) {
     if ( event.touches.length == 1 ) {
-        singleTouchHandler(event)
+        singleTouchHandler(event);
     }
     else if (event.type == "touchmove" && event.touches.length == 2) {
-        isDragging = false
-        handlePinch(event)
+        isDragging = false;
+        handlePinch(event);
     }
 }
 
 function updateCurrentZoom(zoomAmount, zoomFactor) {
     if (!isDragging) {
         if (zoomAmount) {
-            currentZoom += zoomAmount;
+            currentZoom -= zoomAmount;
         }
         else if (zoomFactor) {
             currentZoom *= zoomFactor;
@@ -225,7 +197,3 @@ mapCanvas.onmousewheel = function(event){
 };
 
 loadAllImages();
-makeCanvas();
-
-// small bug 
-// images load only after the canvas is zoomed-in/out or dragged 

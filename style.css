@@ -28,10 +28,12 @@ nav {
 
 .navButton {
     color: white;
-    margin: 5px;
+    padding: 5px;
 }
 
 .navButton:hover {
+    background-color: rgb(110, 107, 107);
+    border-radius: 4px;
     cursor: pointer;
 }
 
@@ -47,6 +49,11 @@ nav {
 
 #dayModeBtn:hover {
     cursor: pointer;
+}
+
+#dayModeBtn>img {
+    width: 5vmin;
+    min-width: 20px;
 }
 
 @keyframes bounce {
@@ -70,6 +77,11 @@ nav {
 .dark-mode{
     background-color: #2C394B !important;
     color: #EEEEEE
+}
+
+#campusImage {
+    /* box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.1); */
+    box-shadow:  1px 4px 5px red;
 }
 
 .builidingSelected {
